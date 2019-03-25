@@ -1,0 +1,45 @@
+application {
+  config {
+    baseName jhipster
+    applicationType monolithic
+    prodDatabaseType postgresql
+    buildTool maven
+  }
+}
+
+entity Permissao {}
+entity Usuario {}
+entity Aluno {}
+entity Professor {}
+entity Falta {}
+entity Nota {}
+entity Aula {}
+entity PeriodoLetivo {}
+entity Turma {}
+entity Entrega {}
+entity Disciplina {}
+entity Atividade {}
+
+relationship OneToMany {
+	Usuario{permissao} to Permissao
+    Falta{periodoLetivo} to PeriodoLetivo
+    Aula{periodoLetivo} to PeriodoLetivo
+    Aluno{turma} to Turma
+    Entrega{aluno} to Aluno
+    Entrega{atividade} to Atividade
+    Atividade{nota} to Nota
+    Atividade{disciplina} to Disciplina
+    Atividade{professor} to Professor
+    Turma{turma} to Professor
+}
+relationship ManyToOne {
+	Usuario{aluno} to Aluno
+    Usuario{professor} to Professor
+    Aluno{falta} to Falta
+    Aluno{nota} to Nota
+    Turma{aula} to Aula
+}
+
+relationship ManyToMany{
+	Professor{disciplina} to Disciplina
+}
